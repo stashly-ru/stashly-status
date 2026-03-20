@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Статус — Stashly</title>
+  <meta name="description" content="Stashly — платформа для публикации артов, фотографий, видео и текстов">
+  <meta name="keywords" content="stashly, арты, фотографии, видео, публикации, творчество, контент">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Статус — Stashly">
+  <meta property="og:description" content="Stashly — платформа для публикации артов, фотографий, видео и текстов">
+  <meta property="og:image" content="https://stashly.ru/img/logo.svg">
+  <meta property="og:url" content="https://stashly.ru">
+  <meta property="og:site_name" content="Stashly">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Статус — Stashly">
+  <meta name="twitter:description" content="Stashly — платформа для публикации артов, фотографий, видео и текстов">
+  <meta name="twitter:image" content="https://stashly.ru/img/logo.svg">
+  <link rel="icon" type="image/svg+xml" href="https://stashly.ru/img/logo.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+/* ========== Stashly — Premium Dark Theme (standalone) ========== */
+:root {
+  --background: #0e0f0d;
+  --background-content: #141513;
+  --base-color: #7f916f;
+  --link-base-color: #cbd9bf;
+  --alpha-base-color: rgba(127,145,111,0.15);
+  --font-color: #e0e0e0;
+  --bg-primary: var(--background);
+  --bg-secondary: #191a18;
+  --bg-card: #1c1d1a;
+  --bg-hover: #242622;
+  --bg-input: #1e201c;
+  --border: rgba(127,145,111,0.12);
+  --border-light: rgba(127,145,111,0.2);
+  --text-primary: var(--font-color);
+  --text-secondary: #a8a8a8;
+  --text-muted: #666;
+  --accent: var(--base-color);
+  --accent-hover: #6b7d5d;
+  --accent-soft: rgba(127,145,111,0.12);
+  --red: rgb(253,27,83);
+  --red-soft: rgba(253,27,84,0.15);
+  --button-background: #1e201c;
+  --button-color: var(--font-color);
+  --button-background-focus: #2a2c28;
+  --scrollbar-background: #0a0a0a;
+  --scrollbar-color: var(--base-color);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.5);
+  --shadow-soft: 0 2px 12px rgba(0,0,0,0.25);
+  --sidebar-width: 260px;
+  --transition: 0.2s ease;
+  --transition-slow: 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+* { margin:0; padding:0; box-sizing:border-box; scrollbar-width:thin; scrollbar-color:var(--scrollbar-color) var(--scrollbar-background); }
+*::-webkit-scrollbar { height:8px; width:8px; }
+*::-webkit-scrollbar-track { background:var(--scrollbar-background); }
+*::-webkit-scrollbar-thumb { background-color:var(--scrollbar-color); border-radius:4px; border:2px solid var(--scrollbar-background); }
+body { font-family:'Inter',system-ui,-apple-system,sans-serif; background:var(--background); color:var(--text-primary); line-height:1.5; min-height:100vh; font-size:14px; }
+a { color:var(--link-base-color); text-decoration:none; transition:color var(--transition); }
+a:hover { color:var(--base-color); }
+
+/* Layout */
+.app-layout { display:flex; min-height:100vh; }
+
+/* Sidebar */
+.sidebar {
+  width:var(--sidebar-width); background:var(--background-content);
+  border-right:1px solid var(--border); position:fixed; top:0; left:0; bottom:0;
+  display:flex; flex-direction:column; z-index:100; transition:transform var(--transition);
+}
+.sidebar-logo {
+  padding:18px 20px; background:linear-gradient(135deg,var(--base-color),#6b7d5d);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.sidebar-logo a {
+  font-size:20px; font-weight:800; color:#fff; letter-spacing:-0.5px;
+  text-decoration:none; display:flex; align-items:center; gap:10px;
+}
+.sidebar-logo a:hover { text-decoration:none; color:#fff; }
+.sidebar-logo-icon { width:28px; height:28px; }
+.version-badge {
+  background:rgba(0,0,0,0.25); color:rgba(255,255,255,0.9);
+  font-size:10px; font-weight:700; padding:3px 8px; border-radius:6px; letter-spacing:0.5px;
+}
+.sidebar-nav { flex:1; padding:12px 10px; display:flex; flex-direction:column; gap:2px; }
+.nav-link {
+  display:flex; align-items:center; gap:12px; padding:10px 14px; border-radius:8px;
+  color:var(--text-secondary); font-size:14px; font-weight:500; transition:all var(--transition); text-decoration:none;
+}
+.nav-link:hover { background:var(--button-background-focus); color:var(--text-primary); text-decoration:none; }
+.nav-link.active { background:var(--alpha-base-color); color:var(--link-base-color); text-decoration:none; }
+.nav-link svg { width:20px; height:20px; flex-shrink:0; }
+.nav-spacer { flex:1; }
+.sidebar-user {
+  padding:14px; border-top:1px solid var(--border); display:flex;
+  align-items:center; gap:10px; background:var(--button-background); justify-content:center;
+}
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:10px 20px; border-radius:8px; font-size:14px; font-weight:600;
+  font-family:inherit; border:none; cursor:pointer; transition:all var(--transition);
+}
+.btn-primary { background:var(--base-color); color:#000; }
+.btn-primary:hover { background:var(--accent-hover); color:#fff; text-decoration:none; transform:translateY(-1px); box-shadow:0 4px 16px rgba(127,145,111,0.3); }
+.btn-block { width:100%; }
+
+/* Main content */
+.main-content { flex:1; margin-left:var(--sidebar-width); min-height:100vh; background:var(--background-content); display:flex; flex-direction:column; }
+.page-content { max-width:640px; margin:0 auto; padding:28px 16px; flex:1; width:100%; }
+
+/* Footer */
+.footer { padding:20px 24px; font-size:12px; color:var(--text-muted); background:var(--bg-card); border-top:1px solid var(--border); margin-top:40px; display:flex; justify-content:space-between; align-items:center; }
+.footer a { color:var(--text-muted); text-decoration:none; }
+.footer a:hover { color:var(--link-base-color); }
+
+/* Mobile */
+.mobile-toggle { display:none; position:fixed; top:10px; left:10px; z-index:200; background:var(--base-color); border:none; border-radius:8px; padding:8px 12px; color:#000; cursor:pointer; font-size:18px; font-weight:700; box-shadow:var(--shadow-soft); }
+
+/* Status page */
+.status-page { max-width:100%; }
+.status-header-label { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:var(--base-color); margin-bottom:8px; }
+.status-header-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:32px; }
+.status-header-title { font-size:24px; font-weight:800; color:var(--text-primary); display:flex; align-items:center; gap:12px; }
+.status-header-dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+.status-dot-good { background:#4caf50; box-shadow:0 0 8px rgba(76,175,80,0.6); }
+.status-dot-down { background:var(--red); box-shadow:0 0 8px rgba(253,27,83,0.6); }
+.status-dot-degraded { background:#f0ad4e; box-shadow:0 0 8px rgba(240,173,78,0.6); }
+.status-dot-nodata { background:var(--border); }
+.status-header-updated { font-size:13px; color:var(--text-muted); }
+.status-service-list { display:flex; flex-direction:column; gap:28px; }
+.status-card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.status-card-name { font-size:15px; font-weight:700; color:var(--text-primary); }
+.status-card-uptime { font-size:13px; font-weight:600; }
+.status-uptime-good { color:#4caf50; }
+.status-uptime-warn { color:#f0ad4e; }
+.status-uptime-bad { color:var(--red); }
+.status-bar { display:flex; gap:2px; height:28px; }
+.status-bar-day { flex:1; border-radius:2px; min-width:0; cursor:pointer; transition:opacity 0.15s; }
+.status-bar-day:hover { opacity:0.7; }
+.status-bar-good { background:#4caf50; }
+.status-bar-degraded { background:#f0ad4e; }
+.status-bar-down { background:var(--red); }
+.status-bar-nodata { background:rgba(255,255,255,0.06); }
+.status-bar-labels { display:flex; justify-content:space-between; margin-top:4px; font-size:11px; color:var(--text-muted); }
+.status-tooltip { position:fixed; display:none; background:rgba(0,0,0,0.9); color:#fff; font-size:11px; padding:6px 10px; border-radius:6px; pointer-events:none; transform:translateX(-50%); z-index:9999; white-space:nowrap; line-height:1.5; text-align:center; }
+
+.error-banner {
+  background:rgba(253,27,83,0.1);
+  border:1px solid rgba(253,27,83,0.3);
+  border-radius:8px;
+  padding:16px 20px;
+  margin-bottom:24px;
+  color:var(--red);
+  font-weight:600;
+  font-size:14px;
+}
+.loading { text-align:center; padding:60px 0; color:var(--text-muted); font-size:15px; }
+
+/* Responsive */
+@media (max-width:768px) {
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .mobile-toggle { display:block; }
+  .main-content { margin-left:0; }
+  .page-content { padding:16px 12px; padding-top:52px; }
+  .footer { flex-direction:column; text-align:center; gap:8px; }
+}
+  </style>
+</head>
+<body>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776;</button>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <a href="https://stashly.ru/">
+          <img src="https://stashly.ru/img/logo.svg" alt="" class="sidebar-logo-icon">
+          Stashly
+        </a>
+        <div class="version-badge">&alpha; 0.3</div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="https://stashly.ru/" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Лента
+        </a>
+        <a href="https://stashly.ru/news" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Новости
+        </a>
+        <a href="https://stashly.ru/emotes" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          Эмоуты
+        </a>
+        <a href="#" class="nav-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Статус
+        </a>
+        <div class="nav-spacer"></div>
+        <a href="https://stashly.ru/search" class="nav-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          Поиск
+        </a>
+      </nav>
+      <div class="sidebar-user">
+        <a href="https://stashly.ru/auth/login" class="btn btn-primary btn-block">Войти</a>
+      </div>
+    </aside>
+    <main class="main-content">
+      <div class="page-content">
+
+<div class="status-page">
+  <div class="status-header-label">SERVICE STATUS</div>
+  <div class="status-header-row">
+    <div class="status-header-title" id="headerTitle">
+      <span class="status-header-dot status-dot-nodata" id="headerDot"></span>
+      Загрузка...
+    </div>
+    <div class="status-header-updated" id="headerUpdated"></div>
+  </div>
+
+  <div id="errorBanner" style="display:none" class="error-banner"></div>
+
+  <div id="serviceList" class="status-service-list">
+    <div class="loading">Получение данных...</div>
+  </div>
+</div>
+
+      </div>
+      <footer class="footer">
+        <p>Stashly &copy; 2026</p>
+        <p>
+          <a href="https://stashly.ru/news">Новости</a> &middot;
+          <a href="https://stashly.ru/explore">Обзор</a> &middot;
+          <a href="https://stashly.ru/help">Справка</a> &middot;
+          <a href="https://stashly.ru/">Лента</a> &middot;
+          <a href="https://stashly.ru/terms">Условия и Конфиденциальность</a>
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+(function() {
+  var API_URL = 'https://stashly.ru/api/status';
+
+  function uptimeClass(val) {
+    val = parseFloat(val);
+    if (val >= 99.5) return 'good';
+    if (val >= 95) return 'warn';
+    return 'bad';
+  }
+
+  function renderServices(data) {
+    var headerTitle = document.getElementById('headerTitle');
+    var headerDot = document.getElementById('headerDot');
+    var headerUpdated = document.getElementById('headerUpdated');
+    var serviceList = document.getElementById('serviceList');
+
+    headerDot.className = 'status-header-dot ' + (data.allOk ? 'status-dot-good' : 'status-dot-down');
+    headerTitle.innerHTML = '';
+    headerTitle.appendChild(headerDot);
+    headerTitle.appendChild(document.createTextNode(data.allOk ? ' All systems operational' : ' Issues detected'));
+    headerUpdated.textContent = 'Updated just now';
+
+    serviceList.innerHTML = '';
+    data.services.forEach(function(svc) {
+      var card = document.createElement('div');
+      card.className = 'status-card';
+
+      var header = document.createElement('div');
+      header.className = 'status-card-header';
+      header.innerHTML = '<div class="status-card-name">' + escapeHtml(svc.name) + '</div>' +
+        '<div class="status-card-uptime status-uptime-' + uptimeClass(svc.uptime) + '">' + escapeHtml(svc.uptime) + '% uptime</div>';
+      card.appendChild(header);
+
+      var bar = document.createElement('div');
+      bar.className = 'status-bar';
+      bar.title = '90 days history';
+      svc.days.forEach(function(day) {
+        var d = document.createElement('div');
+        d.className = 'status-bar-day status-bar-' + day.status;
+        d.dataset.date = day.date;
+        d.dataset.status = day.status;
+        d.dataset.total = day.total;
+        d.dataset.ok = day.ok;
+        bar.appendChild(d);
+      });
+      card.appendChild(bar);
+
+      var labels = document.createElement('div');
+      labels.className = 'status-bar-labels';
+      labels.innerHTML = '<span>90 days ago</span><span>Today</span>';
+      card.appendChild(labels);
+
+      serviceList.appendChild(card);
+    });
+
+    initTooltips();
+  }
+
+  function renderUnreachable() {
+    var headerTitle = document.getElementById('headerTitle');
+    var headerDot = document.getElementById('headerDot');
+    var headerUpdated = document.getElementById('headerUpdated');
+    var errorBanner = document.getElementById('errorBanner');
+    var serviceList = document.getElementById('serviceList');
+
+    headerDot.className = 'status-header-dot status-dot-down';
+    headerTitle.innerHTML = '';
+    headerTitle.appendChild(headerDot);
+    headerTitle.appendChild(document.createTextNode(' Сервер недоступен'));
+    headerUpdated.textContent = '';
+
+    errorBanner.textContent = 'Не удалось подключиться к stashly.ru — сервер может быть недоступен.';
+    errorBanner.style.display = 'block';
+
+    serviceList.innerHTML = '';
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  function initTooltips() {
+    document.querySelectorAll('.status-bar-day').forEach(function(el) {
+      el.addEventListener('mouseenter', function(e) {
+        var tip = document.getElementById('statusTooltip');
+        if (!tip) {
+          tip = document.createElement('div');
+          tip.id = 'statusTooltip';
+          tip.className = 'status-tooltip';
+          document.body.appendChild(tip);
+        }
+        var status = el.dataset.status;
+        var total = parseInt(el.dataset.total) || 0;
+        var ok = parseInt(el.dataset.ok) || 0;
+        var failed = total - ok;
+        var pct = total > 0 ? ((ok / total) * 100).toFixed(1) : 0;
+        var label = '';
+        if (status === 'good') label = 'Всё работало';
+        else if (status === 'degraded') label = 'Сбои: ' + failed + ' из ' + total + ' проверок не прошли (' + pct + '% ок)';
+        else if (status === 'down') label = 'Не работало: ' + failed + ' из ' + total + ' проверок упали (' + pct + '% ок)';
+        else label = 'Нет данных';
+        tip.innerHTML = '<strong>' + el.dataset.date + '</strong><br>' + label;
+        var r = el.getBoundingClientRect();
+        tip.style.left = (r.left + r.width / 2) + 'px';
+        tip.style.top = (r.top - 40) + 'px';
+        tip.style.display = 'block';
+      });
+      el.addEventListener('mouseleave', function() {
+        var tip = document.getElementById('statusTooltip');
+        if (tip) tip.style.display = 'none';
+      });
+    });
+  }
+
+  fetch(API_URL, { signal: AbortSignal.timeout(10000) })
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(renderServices)
+    .catch(renderUnreachable);
+})();
+  </script>
+</body>
+</html>
